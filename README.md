@@ -13,3 +13,13 @@ Code étudiant : 6349821
 - 2.3 : Test avec Postman requis à cet instant, donc j'écris un controlleur de base avec GetAll et GetById
 - 2.4 : Création de la DB à partir de media_items_1200.json. Je l'ai fait directement a partir de l'extension VS Code -> New Playground -> Run All -> "Inserted 1200 documents into mediaItems"
 - 2.5 : Tests dans Postman, si mon GetAll et GetById marchent, je sais que je suis en bizness pour la suite de mes interactions BD... Mon GetById fonctionne parfaitement mais pas mon GetAll. "Cannot deserialize a 'String' from BsonType 'Int32'". Ma propriété c# attend un string mais reçoit un int. J'ai mon tt0192947 que le titre c'est 12 (au lieu de "12") et tt0212712 qui s'appelle 2046 (plutôt que "2046"). Je les change manuellement et on reteste. Bingo. GetAll et GetById fonctionnent.
+
+## step 3 création d'une route de recherche qui peut prendre multiple critères (nom et/ou annee et/ou genre)
+- 3.1: la route de recherche par type uniquement /api/mediaitem/search?type=movie ou type=tvSeries
+- 3.2: ajouter un critère optionnel à cette route -> année (peut être null)
+- 3.3: ajouter un critère optionnel à cette route -> genre (peut être null)
+
+## step 4 reste du crud pour un mediaitem
+- 4.1: Créer, POST /api/mediaitem pour créer un mediaitem
+- 4.2: Update, PUT /api/mediaitem/sonID pour modifier
+- 4.3: Delete

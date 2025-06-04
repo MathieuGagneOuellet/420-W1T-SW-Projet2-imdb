@@ -1,4 +1,6 @@
+using System.Text.RegularExpressions;
 using imdbexperience.DAL.Entities;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace imdbexperience.DAL.DAO
@@ -39,5 +41,19 @@ namespace imdbexperience.DAL.DAO
             var result = await _collection.ReplaceOneAsync(i => i.Id == item.Id, item);
             return result.ModifiedCount > 0;
         }
+        public async Task<List<MediaItem>> GetByCriteriaAsync(string type, int? annee = null, string? genre = null)
+        {
+            var filterBuilder = Builders<MediaItem>.Filter;
+            var filter = filterBuilder.Regex(item => item.Type, new BsonRegularExpression($"^{Regex.Escape(type)}$", "i"));
+
+            if (annee.HasValue)
+                filter &= filterBuilder.Eq(item => item.Annee, annee.Value);
+
+            if (!string.IsNullOrWhiteSpace(genre))
+                filter &= filterBuilder.AnyEq(item => item.Genres, genre);
+
+            return await _collection.Find(filter).ToListAsync();    
+        }
+
     }
 }
