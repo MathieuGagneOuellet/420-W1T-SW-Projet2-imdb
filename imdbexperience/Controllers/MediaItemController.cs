@@ -11,6 +11,7 @@ namespace imdbexperience.Controllers
     {
         private readonly MediaItemDAO _dao;
 
+        //constructeur
         public MediaItemController(MediaItemDAO dao)
         {
             _dao = dao;
@@ -67,7 +68,7 @@ namespace imdbexperience.Controllers
 
             return NoContent(); //response serveur 204 : succès mais pas de retour
         }
-        
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(string id)
         {
@@ -76,5 +77,16 @@ namespace imdbexperience.Controllers
 
             return NoContent(); //204 si suppression OK
         }
+        
+        [HttpGet("{id}/genres")]
+        public async Task<ActionResult<List<Genre>>> GetGenresForMedia(string id, [FromServices] GenreDAO genreDao)
+        {
+            var media = await _dao.GetByIdAsync(id);
+            if (media == null) return NotFound("Média introuvable");
+
+            var genres = await genreDao.GetByNamesAsync(media.Genres);
+            return Ok(genres);
+        }
+
     }
 }

@@ -26,5 +26,17 @@ Code étudiant : 6349821
 
 ## step 5 mediastatus (favorite, watchlist, seen), incluant DAO et Controller
 
-## step 6 implémentation d'une route qui va reoturner la liste complète des MediaItems associés à un userId, qui va aussi inclure les MediaStatus
-- 6.1: La route doit aller chercher tous les MediaStatus d'un userId, extraire la liste des mediaId associés puis faire une requête dans MediaItemDAO pour retourner les objets
+## step 6 implémentation de routes qui vont retourner la liste complète des MediaItems associés à un userId, qui va aussi inclure les MediaStatus
+- 6.1: Premièrement, une route GET pour lister tous les mediaItems qui sont liés a un user
+- 6.2: Ensuite, une route qui va chercher tous les MediaStatus établis par un userId, extraire la liste des mediaItems associés puis faire une requête dans MediaItemDAO pour retourner les objets
+
+## step 7 entité Genre
+- 7.1: Création de l'entity
+- 7.2: Creation du DAO
+- 7.3: Creation du Controller
+- 7.4: Le Genre doit être lié aux MediaItem via relation N<->N
+- 7.5: Peupler la DB de genres. ChatGPT me génère un script de seed automatique pour le faire
+- 7.6: Création de la route GET /api/mediaitem/{id}/genres
+- 7.7: Pauffinage du Controller pour que Genre aie un CRUD de base complet. Comme c'est le même principe depuis le début, je laisse GPT me générer ces routes
+
+## step 8 rechercher un mediaItem par mot-clé ou genre
