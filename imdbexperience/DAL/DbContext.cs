@@ -23,6 +23,8 @@ namespace imdbexperience.DAL
         }
         public IMongoCollection<MediaItem> MediaItems => _database.GetCollection<MediaItem>("mediaItems");
         public IMongoCollection<User> Users => _database.GetCollection<User>("users");
+        public IMongoCollection<MediaStatus> MediaStatuses => _database.GetCollection<MediaStatus>("mediaStatuses");
+
 
     }
 }

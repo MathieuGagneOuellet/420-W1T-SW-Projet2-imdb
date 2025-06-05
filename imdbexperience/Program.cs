@@ -9,6 +9,8 @@ builder.Services.AddControllers(); //permet d'utiliser [ApiController]
 builder.Services.AddSingleton<AppDbContext>(_ => new AppDbContext());
 builder.Services.AddSingleton<MediaItemDAO>();
 builder.Services.AddSingleton<UserDAO>();
+builder.Services.AddSingleton<MediaStatusDAO>();
+
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
