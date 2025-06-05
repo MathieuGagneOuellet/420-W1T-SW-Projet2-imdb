@@ -9,10 +9,15 @@ namespace imdbexperience.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserDAO _dao;
+        private readonly MediaStatusDAO _mediaStatusDAO;
+        private readonly MediaItemDAO _mediaItemDAO;
 
-        public UserController(UserDAO dao)
+        //constructeur
+        public UserController(UserDAO dao, MediaStatusDAO mediaStatusDAO, MediaItemDAO mediaItemDAO)
         {
             _dao = dao;
+            _mediaStatusDAO = mediaStatusDAO;
+            _mediaItemDAO = mediaItemDAO;
         }
 
         [HttpGet]
@@ -48,6 +53,57 @@ namespace imdbexperience.Controllers
 
             return NoContent();
         }
+
+        //route qui appelle GetByIdsAsync pour pouvoir retourner tous les mediaItems liés à un user
+        [HttpGet("{userId}/medias")]
+        public async Task<ActionResult<List<MediaItemWithStatus>>> GetUserMedias(string userId)
+        {
+            var statuses = await _mediaStatusDAO.GetByUserIdAsync(userId);
+            if (statuses == null || statuses.Count == 0)
+                return NotFound("Aucun lien trouvé avec ce user.");
+
+            var mediaIds = statuses.Select(s => s.MediaId).Distinct().ToList();
+            var mediaItems = await _mediaItemDAO.GetByIdsAsync(mediaIds);
+
+            var combined = statuses
+                .Select(status =>
+                {
+                    var media = mediaItems.FirstOrDefault(m => m.Id == status.MediaId);
+                    return media != null
+                        ? new MediaItemWithStatus { Media = media, Status = status.Status }
+                        : null;
+                })
+                .Where(x => x != null)
+                .ToList()!;
+
+            return Ok(combined);
+        }
+
+        //route qui appelle GetByIdsAsync pour pouvoir retourner tous les mediaItems dans la Watchlist du user (par exemple)
+        [HttpGet("{userId}/medias/{status}")]
+        public async Task<ActionResult<List<MediaItemWithStatus>>> GetUserMediasByStatus(string userId, string status)
+        {
+            var statuses = await _mediaStatusDAO.GetByUserAndStatusAsync(userId, status);
+            if (statuses == null || statuses.Count == 0)
+                return NotFound("Aucun lien trouvé avec ce statut.");
+
+            var mediaIds = statuses.Select(s => s.MediaId).Distinct().ToList();
+            var mediaItems = await _mediaItemDAO.GetByIdsAsync(mediaIds);
+
+            var combined = statuses
+                .Select(s =>
+                {
+                    var media = mediaItems.FirstOrDefault(m => m.Id == s.MediaId);
+                    return media != null
+                        ? new MediaItemWithStatus { Media = media, Status = s.Status }
+                        : null;
+                })
+                .Where(x => x != null)
+                .ToList()!;
+
+            return Ok(combined);
+        }
+
 
     }    
 }

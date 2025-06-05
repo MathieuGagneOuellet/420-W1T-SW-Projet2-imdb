@@ -52,8 +52,15 @@ namespace imdbexperience.DAL.DAO
             if (!string.IsNullOrWhiteSpace(genre))
                 filter &= filterBuilder.AnyEq(item => item.Genres, genre);
 
-            return await _collection.Find(filter).ToListAsync();    
+            return await _collection.Find(filter).ToListAsync();
         }
 
+        //Méthode complémentaire a GetByIdAsync (Ids plutôt que Id), elle permet de chercher plusieurs MediaItem 
+        //à la fois, par exemple chercher tous les MediaItem qui sont dans la Watchlist d'un user
+        public async Task<List<MediaItem>> GetByIdsAsync(List<string> ids)
+        {
+            var filter = Builders<MediaItem>.Filter.In(item => item.Id, ids);
+            return await _collection.Find(filter).ToListAsync();
+        }
     }
 }

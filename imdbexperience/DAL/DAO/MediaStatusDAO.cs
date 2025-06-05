@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using imdbexperience.DAL.Entities;
 using MongoDB.Driver;
 
@@ -43,5 +44,15 @@ namespace imdbexperience.DAL.DAO
             var result = await _collection.ReplaceOneAsync(item => item.Id == status.Id, status);
             return result.ModifiedCount > 0;
         }
+                public async Task<List<MediaStatus>> GetByUserAndStatusAsync(string userId, string status)
+                {
+                    var filter = Builders<MediaStatus>.Filter.And(
+                        Builders<MediaStatus>.Filter.Eq(ms => ms.UserId, userId),
+                        Builders<MediaStatus>.Filter.Regex(ms => ms.Status, new MongoDB.Bson.BsonRegularExpression($"^{Regex.Escape(status)}$", "i"))
+                    );
+
+                    return await _collection.Find(filter).ToListAsync();
+                }
+
     }
 }

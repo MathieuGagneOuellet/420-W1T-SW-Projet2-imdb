@@ -23,3 +23,8 @@ Code étudiant : 6349821
 - 4.1: Créer, POST /api/mediaitem pour créer un mediaitem
 - 4.2: Update, PUT /api/mediaitem/sonID pour modifier
 - 4.3: Delete
+
+## step 5 mediastatus (favorite, watchlist, seen), incluant DAO et Controller
+
+## step 6 implémentation d'une route qui va reoturner la liste complète des MediaItems associés à un userId, qui va aussi inclure les MediaStatus
+- 6.1: La route doit aller chercher tous les MediaStatus d'un userId, extraire la liste des mediaId associés puis faire une requête dans MediaItemDAO pour retourner les objets
