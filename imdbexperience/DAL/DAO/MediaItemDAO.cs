@@ -7,7 +7,7 @@ namespace imdbexperience.DAL.DAO
 {
     public class MediaItemDAO
     {
-        //opérations d'accès a la db de base. GetAll, GetById, Insert, Delete, Update
+        //crud pour MediaItems. GetAll, GetById, Insert, Delete, Update
         private readonly IMongoCollection<MediaItem> _collection;
 
         public MediaItemDAO(AppDbContext context)

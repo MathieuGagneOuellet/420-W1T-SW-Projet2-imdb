@@ -17,10 +17,12 @@ namespace imdbexperience.DAL
             var connectionString = Environment.GetEnvironmentVariable("MONGODB_URI");
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new Exception("Problème avec MONGODB_URI");
-                
+
             var client = new MongoClient(connectionString);
             _database = client.GetDatabase("imdb");
         }
         public IMongoCollection<MediaItem> MediaItems => _database.GetCollection<MediaItem>("mediaItems");
+        public IMongoCollection<User> Users => _database.GetCollection<User>("users");
+
     }
 }
