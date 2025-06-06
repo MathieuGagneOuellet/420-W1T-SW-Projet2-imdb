@@ -41,22 +41,33 @@ namespace imdbexperience.DAL.DAO
             var result = await _collection.ReplaceOneAsync(i => i.Id == item.Id, item);
             return result.ModifiedCount > 0;
         }
-        public async Task<List<MediaItem>> GetByCriteriaAsync(string type, int? annee = null, string? genre = null)
+
+        //méthode pour rechercher plusieurs MediaItems selon des critères (type, annee, genre, keyword)
+        public async Task<List<MediaItem>> GetByCriteriaAsync(string type, int? annee = null, string? genre = null, string? keyword = null)
         {
             var filterBuilder = Builders<MediaItem>.Filter;
-            var filter = filterBuilder.Regex(item => item.Type, new BsonRegularExpression($"^{Regex.Escape(type)}$", "i"));
-
+            var filters = new List<FilterDefinition<MediaItem>>//liste des filtres à appliquer
+            {
+                filterBuilder.Regex(m => m.Type, new BsonRegularExpression($"^{Regex.Escape(type)}$", "i")) //filtre sur le type, case insensitive
+            };
+            //filtres additionnels si précisés
             if (annee.HasValue)
-                filter &= filterBuilder.Eq(item => item.Annee, annee.Value);
+                filters.Add(filterBuilder.Eq(m => m.Annee, annee.Value));
 
             if (!string.IsNullOrWhiteSpace(genre))
-                filter &= filterBuilder.AnyEq(item => item.Genres, genre);
+                filters.Add(filterBuilder.AnyEq(m => m.Genres, genre));
 
+            if (!string.IsNullOrWhiteSpace(keyword))
+                filters.Add(filterBuilder.Regex(m => m.Titre, new BsonRegularExpression(keyword, "i")));
+
+            //fusion des filtres (si applicable)
+            var filter = filters.Count > 1 ? filterBuilder.And(filters) : filters.First();
             return await _collection.Find(filter).ToListAsync();
         }
 
-        //Méthode complémentaire a GetByIdAsync (Ids plutôt que Id), elle permet de chercher plusieurs MediaItem 
-        //à la fois, par exemple chercher tous les MediaItem qui sont dans la Watchlist d'un user
+        //Méthode complémentaire a GetByIdAsync (Ids plutôt que Id), 
+        //elle permet de chercher plusieurs MediaItem à la fois, 
+        //par exemple chercher tous les MediaItem qui sont dans la Watchlist d'un user
         public async Task<List<MediaItem>> GetByIdsAsync(List<string> ids)
         {
             var filter = Builders<MediaItem>.Filter.In(item => item.Id, ids);

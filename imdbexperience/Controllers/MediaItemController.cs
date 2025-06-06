@@ -37,15 +37,17 @@ namespace imdbexperience.Controllers
         (
             [FromQuery] string type,
             [FromQuery] int? annee,
-            [FromQuery] string? genre
+            [FromQuery] string? genre,
+            [FromQuery] string? keyword
         )
         {
             if (string.IsNullOrWhiteSpace(type))
                 return BadRequest("Le type est requis");
 
-            var results = await _dao.GetByCriteriaAsync(type, annee, genre);
+            var results = await _dao.GetByCriteriaAsync(type, annee, genre, keyword);
             return Ok(results);
         }
+
 
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] MediaItem item)
@@ -77,7 +79,7 @@ namespace imdbexperience.Controllers
 
             return NoContent(); //204 si suppression OK
         }
-        
+
         [HttpGet("{id}/genres")]
         public async Task<ActionResult<List<Genre>>> GetGenresForMedia(string id, [FromServices] GenreDAO genreDao)
         {
@@ -87,6 +89,7 @@ namespace imdbexperience.Controllers
             var genres = await genreDao.GetByNamesAsync(media.Genres);
             return Ok(genres);
         }
+        
 
     }
 }
