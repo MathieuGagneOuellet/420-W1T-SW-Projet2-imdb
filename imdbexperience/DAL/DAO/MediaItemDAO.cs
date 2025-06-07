@@ -73,5 +73,17 @@ namespace imdbexperience.DAL.DAO
             var filter = Builders<MediaItem>.Filter.In(item => item.Id, ids);
             return await _collection.Find(filter).ToListAsync();
         }
+
+        //méthode qui retourne une liste d'objets qui contient Titre et Annee
+        public async Task<List<object>> GetPartialAsync()
+        {
+            var result = await _collection
+                .Find(_ => true)
+                .Project(item => new { item.Titre, item.Annee })
+                .ToListAsync();
+
+            return result.Cast<object>().ToList();
+        }
+
     }
 }

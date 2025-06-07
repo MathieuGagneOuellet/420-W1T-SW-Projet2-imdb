@@ -11,6 +11,7 @@ builder.Services.AddSingleton<MediaItemDAO>();
 builder.Services.AddSingleton<UserDAO>();
 builder.Services.AddSingleton<MediaStatusDAO>();
 builder.Services.AddSingleton<GenreDAO>();
+builder.Services.AddSingleton<StatsDAO>();
 
 
 

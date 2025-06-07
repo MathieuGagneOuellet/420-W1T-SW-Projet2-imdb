@@ -38,5 +38,9 @@ Code étudiant : 6349821
 - 7.5: Peupler la DB de genres. ChatGPT me génère un script de seed automatique pour le faire
 - 7.6: Création de la route GET /api/mediaitem/{id}/genres
 - 7.7: Pauffinage du Controller pour que Genre aie un CRUD de base complet. Comme c'est le même principe depuis le début, je laisse GPT me générer ces routes
+- 7.8 : GetByCriteriaAsync doit être modifié pour permettre l'utilisation de l'entité Genre, pour que on puisse maintenant rechercher un mediaItem par mot-clé ou genre
+- 7.9: Je vais ajouter la projection partielle maintenant vu que c'est vraiment simple. J'ai préféré l'insérer dans l'entité MediaItem question organisation
 
-## step 8 rechercher un mediaItem par mot-clé ou genre
+## step 8 Nouveau DAO/Controller dédié aux stats personalisées d'un user (nombre de films vus par année, moyenne de durees des films vus, genres les plus frequents)
+- 8.1: statsDao.cs créé, implémentation de CountByStatusAsync, GetUserCountAsync, GetMediaItemCountAsync, GetMediaStatusCountAsync (AIA). 
+- 8.2: Ajout de la méthode/route pour tout combiner les genres des mediaItems que l'utilisateur a vu (status = "seen")

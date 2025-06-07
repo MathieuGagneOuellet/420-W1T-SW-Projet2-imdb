@@ -89,7 +89,12 @@ namespace imdbexperience.Controllers
             var genres = await genreDao.GetByNamesAsync(media.Genres);
             return Ok(genres);
         }
-        
 
+        [HttpGet("partial")]
+        public async Task<ActionResult<List<object>>> GetPartial()
+        {
+            var items = await _dao.GetPartialAsync();
+            return Ok(items);
+        }
     }
 }
