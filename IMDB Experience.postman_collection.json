@@ -1,0 +1,625 @@
+{
+	"info": {
+		"_postman_id": "0609cbb2-71cf-44f1-8fd0-3d26a4d1486d",
+		"name": "IMDB Experience",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44367729"
+	},
+	"item": [
+		{
+			"name": "Get all mediaitems",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/mediaitem/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediaitem",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get mediaitem by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/mediaitem/tt0035423",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediaitem",
+						"tt0035423"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get mediaitems by criterias",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/mediaitem/recherche?type=movie&annee=2002&genre=Comedy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediaitem",
+						"recherche"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "movie"
+						},
+						{
+							"key": "annee",
+							"value": "2002"
+						},
+						{
+							"key": "genre",
+							"value": "Comedy"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create mediaitem",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": \"tt9999999\",\r\n    \"titre\" : \"Homemade Film par moi de moi\",\r\n    \"type\" : \"movie\",\r\n    \"annee\": 2025,\r\n    \"duree\": 100,\r\n    \"genres\": [\"Comedy\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5198/api/mediaitem",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediaitem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update mediaitem",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": \"tt9999999\",\r\n    \"titre\" : \"Homemade Film par moi de moi\",\r\n    \"type\" : \"movie\",\r\n    \"annee\": 2025,\r\n    \"duree\": 200,\r\n    \"genres\": [\"Drama\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5198/api/mediaitem/tt9999999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediaitem",
+						"tt9999999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete mediaitem",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/mediaitem/tt9999999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediaitem",
+						"tt9999999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\": \"mathieu\", \"password\": \"salut123\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5198/api/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/user/6840f398c0569533b4eaeab3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"user",
+						"6840f398c0569533b4eaeab3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \r\n    \"_id\": \"6840f398c0569533b4eaeab3\",\r\n    \"username\": \"mathieu\",\r\n    \"password\": \"salut321\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5198/api/user/6840f398c0569533b4eaeab3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"user",
+						"6840f398c0569533b4eaeab3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create mediastatus",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": \"6840f398c0569533b4eaeab3\",\r\n  \"mediaId\": \"tt0035423\",\r\n  \"status\": \"Favorite\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5198/api/mediastatus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediastatus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all mediastatuses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/mediastatus/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediastatus",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get mediastatus by user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/mediastatus/user/6840f398c0569533b4eaeab3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediastatus",
+						"user",
+						"6840f398c0569533b4eaeab3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update mediastatus",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"_id\": \"68419895283ab2ef5aea5cb8\",\r\n        \"userId\": \"6840f398c0569533b4eaeab3\",\r\n        \"mediaId\": \"tt0035423\",\r\n        \"status\": \"Watchlist\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5198/api/mediastatus/LE_BON_ID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediastatus",
+						"LE_BON_ID"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete mediastatus",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/mediastatus/LE_BON_ID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediastatus",
+						"LE_BON_ID"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all mediaItems in a user's list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/user/6840f398c0569533b4eaeab3/medias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"user",
+						"6840f398c0569533b4eaeab3",
+						"medias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all favorited mediaItems in a user's list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/user/6840f398c0569533b4eaeab3/medias/favorite",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"user",
+						"6840f398c0569533b4eaeab3",
+						"medias",
+						"favorite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get genres of a mediaItem",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/mediaitem/tt0035423/genres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediaitem",
+						"tt0035423",
+						"genres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get by type + keyword",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/mediaitem/recherche?type=movie&keyword=love",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediaitem",
+						"recherche"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "movie"
+						},
+						{
+							"key": "keyword",
+							"value": "love"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get stats totals",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/stats/totals",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"stats",
+						"totals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get stats statuses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/stats/statuses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"stats",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get partial projection",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/mediaitem/partial",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediaitem",
+						"partial"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get fav genres for a user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/stats/user/6840f398c0569533b4eaeab3/topgenres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"stats",
+						"user",
+						"6840f398c0569533b4eaeab3",
+						"topgenres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get mediaItem seen per year",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/stats/6840f398c0569533b4eaeab3/activity-by-year",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"stats",
+						"6840f398c0569533b4eaeab3",
+						"activity-by-year"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get mediaItem per average duration for a user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/stats/6840f398c0569533b4eaeab3/average-duration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"stats",
+						"6840f398c0569533b4eaeab3",
+						"average-duration"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

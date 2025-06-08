@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using imdbexperience.DAL.Entities;
+using MongoDB.Bson;
 
 namespace imdbexperience.DAL.DAO
 {
@@ -38,7 +39,7 @@ namespace imdbexperience.DAL.DAO
         {
             return await _collection.CountDocumentsAsync(_ => true);
         }
-        
+
         public async Task<Dictionary<string, int>> GetFavGenresForUserAsync(string userId, MediaItemDAO mediaItemDao)
         {
             //On récupère tous les statuts "Seen" pour l'utilisateur
@@ -54,6 +55,62 @@ namespace imdbexperience.DAL.DAO
 
             return genreCounts;
         }
+
+        public async Task<double> GetAverageDurationSeenAsync(string userId)
+        {
+            var pipeline = new[]
+            {
+                new BsonDocument("$match", new BsonDocument {
+                    { "userId", userId },
+                    { "status", "Seen" }
+                }),
+                new BsonDocument("$lookup", new BsonDocument {
+                    { "from", "mediaItems" },
+                    { "localField", "mediaId" },
+                    { "foreignField", "_id" },
+                    { "as", "media" }
+                }),
+                new BsonDocument("$unwind", "$media"),
+                new BsonDocument("$group", new BsonDocument {
+                    { "_id", BsonNull.Value },
+                    { "avgDuration", new BsonDocument("$avg", "$media.duree") }
+                })
+            };
+
+            var result = await _collection.Aggregate<BsonDocument>(pipeline).FirstOrDefaultAsync();
+            return result != null ? result["avgDuration"].ToDouble() : 0;
+        }
+        
+        public async Task<Dictionary<int, int>> GetSeenCountByYearAsync(string userId)
+        {
+            var pipeline = new[]
+            {
+                new BsonDocument("$match", new BsonDocument {
+                    { "userId", userId },
+                    { "status", "Seen" }
+                }),
+                new BsonDocument("$lookup", new BsonDocument {
+                    { "from", "mediaItems" },
+                    { "localField", "mediaId" },
+                    { "foreignField", "_id" },
+                    { "as", "media" }
+                }),
+                new BsonDocument("$unwind", "$media"),
+                new BsonDocument("$group", new BsonDocument {
+                    { "_id", "$media.annee" },
+                    { "count", new BsonDocument("$sum", 1) }
+                }),
+                new BsonDocument("$sort", new BsonDocument("_id", 1))
+            };
+
+            var result = await _collection.Aggregate<BsonDocument>(pipeline).ToListAsync();
+
+            return result.ToDictionary(
+                doc => doc["_id"].AsInt32,
+                doc => doc["count"].AsInt32
+            );
+        }
+
 
     }
 }

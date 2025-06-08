@@ -1,5 +1,25 @@
 # 420-W1T-SW-Projet2-imdb
 Code étudiant : 6349821
+Le projet est une API REST complète qui utilise ASP.NET Core et MongoDB. L'objectif est de construire un back-end qui pourrait être utilisé pour un site-web ou une app qui documente des items médias depuis IMDB. Le projet permet de gérer des utilisateurs avec leurs favorites/watchlist/seen, d'afficher à ces users leurs stats pour tel ou tel item média (j'ai vu 56 films comedy, 112 drames, etc.)
+Technologies utilisées : ASP.NET Core 8, MongoDB, Postman pour tests
+Structure des entités : n-tier, DAL/Entities pour les classes, DAL/DAO pour les data access object, Controllers/ pour les routes API, j'ai inséré le seed de démarrage DB dans /utils/
+4 entités, 'User', 'MediaItem', 'MediaStatus', 'Genre', routes CRUD pour les 4
+Exemples de requêtes : 
+GET => /api/mediaitem/recherche?type=movie&annee=2002&genre=Comedy : Recherche par type + filtres
+GET => /api/mediaitem/partialproj : Retourne uniquement titre et année des médias
+GET => /api/user/6840f398c0569533b4eaeab3/medias : Tous les MediaItems liés à un user, avec le status (ex: Watchlist)
+GET => /api/user/6840f398c0569533b4eaeab3/medias/seen : Filtrer par statut custom pour un user
+GET => /api/mediaitem/tt0035423/genres : Liste des genres associés a un MediaItem (N:N relation)
+GET => /api/stats/totals : Retourne combien d'users/mediaItems/mediaStatuses sont enregistrés
+GET => /api/stats/statuses : Retourne combien d'éléments sont dans les différents status (Watchlist, Seen, Favorite, etc., l'user peut créer des nouveaux status dans cette version)
+GET => /api/stats/6840f398c0569533b4eaeab3/genres-frequents : Genres les plus vus par un user donné
+GET => /api/stats/6840f398c0569533b4eaeab3/activity-by-year : 
+POST => /api/mediastatus : Crée un lien entre un user et un mediaItem avec un statut
+PUT => /api/user/6840f398c0569533b4eaeab3 : Modifier un user (ex, mdp mais non sécurisé)
+DELETE => /api/mediastatus/6841aafea8333b2baf9c4b8d : Delete un mediaStatus pour un user donné
+(ma suite de test postman est disponible dans le fichier IMDB Experience.postman_collection.json, tous les tests m'ont retourné un status 200 sur mon poste avec le port 5198)
+
+
 
 ### step 1 prep work début de projet
 - 1.1 : récupération des données externes sur imdb, puis convertir en tableau excel
@@ -44,3 +64,7 @@ Code étudiant : 6349821
 ## step 8 Nouveau DAO/Controller dédié aux stats personalisées d'un user (nombre de films vus par année, moyenne de durees des films vus, genres les plus frequents)
 - 8.1: statsDao.cs créé, implémentation de CountByStatusAsync, GetUserCountAsync, GetMediaItemCountAsync, GetMediaStatusCountAsync (AIA). 
 - 8.2: Ajout de la méthode/route pour tout combiner les genres des mediaItems que l'utilisateur a vu (status = "seen")
+- 8.3: Ajout de "Moyenne de durée des films vus" et "Activité par année", deux routes GET qui vont être facile à incorporer dans StatsDAO/StatsController (AIA)
+
+## step 9 pauffinage, prép pour la remise
+- 9 Ajout de la section au début du readme, export de la suite de test Postman, verif finale

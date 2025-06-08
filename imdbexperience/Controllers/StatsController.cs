@@ -39,5 +39,20 @@ namespace imdbexperience.Controllers
             var result = await _dao.GetFavGenresForUserAsync(userId, mediaItemDao);
             return Ok(result);
         }
+        
+        [HttpGet("{userId}/average-duration")]
+        public async Task<ActionResult<double>> GetAverageDuration(string userId)
+        {
+            var avg = await _dao.GetAverageDurationSeenAsync(userId);
+            return Ok(avg);
+        }
+
+        [HttpGet("{userId}/activity-by-year")]
+        public async Task<ActionResult<Dictionary<int, int>>> GetActivityByYear(string userId)
+        {
+            var stats = await _dao.GetSeenCountByYearAsync(userId);
+            return Ok(stats);
+        }
+
     }
 }
