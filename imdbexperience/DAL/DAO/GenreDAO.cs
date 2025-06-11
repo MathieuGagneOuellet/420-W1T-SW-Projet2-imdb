@@ -48,12 +48,31 @@ namespace imdbexperience.DAL.DAO
         {
             return await _collection.Find(g => ids.Contains(g.Id)).ToListAsync();
         }
-        
+
         public async Task<List<Genre>> GetByNamesAsync(List<string> names)
         {
             var filter = Builders<Genre>.Filter.In("nom", names);
             return await _collection.Find(filter).ToListAsync();
         }
+        public async Task CreateManyAsync(List<Genre> genres)
+        {
+            if (genres.Count > 0)
+                await _collection.InsertManyAsync(genres);
+        }
+        public async Task<List<Genre>> GetOrCreateGenresAsync(List<string> names, IClientSessionHandle session)
+        {
+            var existing = await _collection.Find(session, g => names.Contains(g.Nom)).ToListAsync();
+            var existingNames = existing.Select(g => g.Nom).ToHashSet();
+            var toCreate = names.Where(n => !existingNames.Contains(n)).ToList();
+
+            var genresToInsert = toCreate.Select(n => new Genre { Nom = n }).ToList();
+
+            if (genresToInsert.Count > 0)
+                await _collection.InsertManyAsync(session, genresToInsert);
+
+            return existing.Concat(genresToInsert).ToList();
+        }
+
 
     }
 }

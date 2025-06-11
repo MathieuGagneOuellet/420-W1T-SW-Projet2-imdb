@@ -620,6 +620,69 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Create mediaItem, create genres, link the two",
+			"request": {
+				"auth": {
+					"type": "inherit"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"_id\": \"tt9999999\",\r\n  \"titre\": \"Test Movie Transaction\",\r\n  \"type\": \"movie\",\r\n  \"annee\": 2025,\r\n  \"duree\": 110,\r\n  \"genres\": [\"Drama\", \"Adventure\", \"Mythical\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5198/api/mediaItem/complet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediaItem",
+						"complet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create mediaItem, create genres, link the two (transaction)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"_id\": \"tt9999992\",\r\n  \"titre\": \"Test Transaction Movie\",\r\n  \"type\": \"movie\",\r\n  \"annee\": 2024,\r\n  \"duree\": 123,\r\n  \"genres\": [\"TestGenreA\", \"TestGenreB\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5198/api/mediaItem/complet",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediaItem",
+						"complet"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -34,7 +34,11 @@ app.UseHttpsRedirection();
 
 app.MapControllers(); //save mes controlleurs automatiquement
 
-await StartSeed.CreateAdminUser(app.Services); //s'assure que admin existe comme user (password : admin)
-await StartSeed.CreateGenres(app.Services.GetRequiredService<AppDbContext>()); //s'assure que ma DB contient les Genres
+using (var scope = app.Services.CreateScope())
+{
+    await StartSeed.Init(scope.ServiceProvider);
+}
+    // await StartSeed.CreateAdminUser(app.Services); //s'assure que admin existe comme user (password : admin)
+    // await StartSeed.CreateGenres(app.Services.GetRequiredService<AppDbContext>()); //s'assure que ma DB contient les Genres
 
-app.Run();
+    app.Run();

@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace imdbexperience.DAL.Entities
 {
@@ -13,6 +14,8 @@ namespace imdbexperience.DAL.Entities
         public string Id { get; set; } = string.Empty;
 
         [BsonElement("titre")]
+        [Required]
+        [StringLength(255)]
         public string Titre { get; set; } = string.Empty;
 
         [BsonElement("type")]

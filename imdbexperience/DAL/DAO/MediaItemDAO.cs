@@ -85,5 +85,48 @@ namespace imdbexperience.DAL.DAO
             return result.Cast<object>().ToList();
         }
 
+        //méthode qui crée un nouveau mediaItem, crée ses Genres, et lie tout ça ensemble (en utilisant GenreIds)
+        public async Task<bool> CreateMediaWithGenresAsync(MediaItem item, GenreDAO genreDao)
+        {
+            var genreNames = item.Genres.Distinct().ToList();
+            var existingGenres = await genreDao.GetByNamesAsync(genreNames);
+            var existingNames = existingGenres.Select(g => g.Nom).ToList();
+            var newGenres = genreNames
+                .Where(name => !existingNames.Contains(name))
+                .Select(name => new Genre { Nom = name })
+                .ToList();
+
+            if (newGenres.Count > 0)
+            {
+                await genreDao.CreateManyAsync(newGenres);
+            }
+            var allGenres = await genreDao.GetByNamesAsync(genreNames);
+            item.GenreIds = allGenres.Select(g => g.Id).ToList();
+
+            await _collection.InsertOneAsync(item);
+            return true;
+        }
+
+        public async Task<bool> CreateMediaGenreTransaction(MediaItem item, List<string> genreNames, GenreDAO genreDao)
+        {
+            using var session = await _collection.Database.Client.StartSessionAsync();
+            session.StartTransaction();
+            try
+            {
+                var genreEntities = await genreDao.GetOrCreateGenresAsync(genreNames, session); //get/write les genres associés au media
+                item.Genres = genreEntities.Select(g => g.Nom).ToList(); //update la propriété "Genres" du media
+                await _collection.InsertOneAsync(session, item); 
+                await session.CommitTransactionAsync();
+    
+                return true;
+            }
+            catch (Exception)
+            {
+                await session.AbortTransactionAsync(); //rollback
+                return false;
+                
+            }
+        }
+        
     }
 }

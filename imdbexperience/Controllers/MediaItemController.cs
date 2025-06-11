@@ -96,5 +96,32 @@ namespace imdbexperience.Controllers
             var items = await _dao.GetPartialAsync();
             return Ok(items);
         }
+
+        [HttpPost("complet")]
+        public async Task<ActionResult> CreateWithGenres([FromBody] MediaItem item, [FromServices] GenreDAO genreDao)
+        {
+            if (item == null || string.IsNullOrWhiteSpace(item.Id))
+                return BadRequest("Objet MediaItem invalide");
+
+            var success = await _dao.CreateMediaWithGenresAsync(item, genreDao);
+            return success
+                ? CreatedAtAction(nameof(GetById), new { id = item.Id }, item)
+                : StatusCode(500, "Erreur lors de la création");
+        }
+
+        [HttpPost("transaction")]
+        public async Task<ActionResult> CreateWithGenresTransactional([FromBody] MediaItem item, [FromServices] GenreDAO genreDao)
+        {
+            if (item == null || string.IsNullOrWhiteSpace(item.Id) || item.Genres == null || item.Genres.Count == 0)
+                return BadRequest("Objet MediaItem invalide");
+
+            var success = await _dao.CreateMediaGenreTransaction(item, item.Genres, genreDao);
+
+            if (!success)
+                return StatusCode(500, "Erreur pendant la transaction");
+
+            return CreatedAtAction(nameof(GetById), new { id = item.Id }, item);
+        }
+
     }
 }
