@@ -8,10 +8,24 @@
 	"item": [
 		{
 			"name": "Get all mediaitems",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get all mediaitems\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    let json = pm.response.json();\r",
+							"    pm.expect(json.length).to.be.above(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
-				"auth": {
-					"type": "inherit"
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -32,6 +46,24 @@
 		},
 		{
 			"name": "Get mediaitem by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get mediaitem by ID\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    let json = pm.response.json();\r",
+							"    pm.expect(json).to.have.property(\"_id\");\r",
+							"    pm.expect(json).to.have.property(\"titre\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -53,6 +85,23 @@
 		},
 		{
 			"name": "Get mediaitems by criterias",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Search mediaitems with filters\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    let items = pm.response.json();\r",
+							"    pm.expect(items).to.be.an(\"array\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -88,6 +137,24 @@
 		},
 		{
 			"name": "Create mediaitem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create mediaitem\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    let item = pm.response.json();\r",
+							"    pm.expect(item).to.have.property(\"_id\");\r",
+							"    pm.expect(item).to.have.property(\"titre\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -117,6 +184,21 @@
 		},
 		{
 			"name": "Update mediaitem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Update mediaitem\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -147,6 +229,21 @@
 		},
 		{
 			"name": "Delete mediaitem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete mediaitem\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -168,12 +265,30 @@
 		},
 		{
 			"name": "Create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create user\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    let user = pm.response.json();\r",
+							"    pm.expect(user).to.have.property(\"_id\");\r",
+							"    pm.expect(user).to.have.property(\"username\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"username\": \"mathieu\", \"password\": \"salut123\"}",
+					"raw": "{\r\n    \"_id\" : \"222000000000000000000002\",\r\n    \"username\": \"mathieu\", \r\n    \"password\": \"salut123\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -218,11 +333,29 @@
 		},
 		{
 			"name": "Get user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get user by ID\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    let user = pm.response.json();\r",
+							"    pm.expect(user).to.have.property(\"_id\");\r",
+							"    pm.expect(user).to.have.property(\"username\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5198/api/user/6840f398c0569533b4eaeab3",
+					"raw": "http://localhost:5198/api/user/222000000000000000000002",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -231,7 +364,7 @@
 					"path": [
 						"api",
 						"user",
-						"6840f398c0569533b4eaeab3"
+						"222000000000000000000002"
 					]
 				}
 			},
@@ -239,12 +372,27 @@
 		},
 		{
 			"name": "Update user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Update user\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{    \r\n    \"_id\": \"6840f398c0569533b4eaeab3\",\r\n    \"username\": \"mathieu\",\r\n    \"password\": \"salut321\"\r\n    }",
+					"raw": "{    \r\n    \"_id\": \"222000000000000000000002\",\r\n    \"username\": \"mathieu\",\r\n    \"password\": \"salut321\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -252,7 +400,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5198/api/user/6840f398c0569533b4eaeab3",
+					"raw": "http://localhost:5198/api/user/222000000000000000000002",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -261,7 +409,43 @@
 					"path": [
 						"api",
 						"user",
-						"6840f398c0569533b4eaeab3"
+						"222000000000000000000002"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete user\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/user/222000000000000000000002",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"user",
+						"222000000000000000000002"
 					]
 				}
 			},
@@ -269,12 +453,32 @@
 		},
 		{
 			"name": "Create mediastatus",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create mediastatus\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    let status = pm.response.json();\r",
+							"    pm.expect(status).to.have.property(\"_id\");\r",
+							"    pm.expect(status).to.have.property(\"userId\");\r",
+							"    pm.expect(status).to.have.property(\"mediaId\");\r",
+							"    pm.expect(status).to.have.property(\"status\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"userId\": \"6840f398c0569533b4eaeab3\",\r\n  \"mediaId\": \"tt0035423\",\r\n  \"status\": \"Favorite\"\r\n}",
+					"raw": "{\r\n  \"_id\" : \"333000000000000000000001\",\r\n  \"userId\": \"222000000000000000000001\",\r\n  \"mediaId\": \"tt0035423\",\r\n  \"status\": \"Favorite\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -298,6 +502,23 @@
 		},
 		{
 			"name": "Get all mediastatuses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get all mediastatuses\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    let statuses = pm.response.json();\r",
+							"    pm.expect(statuses).to.be.an(\"array\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -319,11 +540,33 @@
 		},
 		{
 			"name": "Get mediastatus by user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get mediastatuses by user\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    let statuses = pm.response.json();\r",
+							"    pm.expect(statuses).to.be.an(\"array\");\r",
+							"    statuses.forEach(s => {\r",
+							"        pm.expect(s).to.have.property(\"userId\");\r",
+							"        pm.expect(s).to.have.property(\"mediaId\");\r",
+							"        pm.expect(s).to.have.property(\"status\");\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5198/api/mediastatus/user/6840f398c0569533b4eaeab3",
+					"raw": "http://localhost:5198/api/mediastatus/user/222000000000000000000001",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -333,7 +576,7 @@
 						"api",
 						"mediastatus",
 						"user",
-						"6840f398c0569533b4eaeab3"
+						"222000000000000000000001"
 					]
 				}
 			},
@@ -341,12 +584,27 @@
 		},
 		{
 			"name": "Update mediastatus",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Update mediastatus\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n        \"_id\": \"68419895283ab2ef5aea5cb8\",\r\n        \"userId\": \"6840f398c0569533b4eaeab3\",\r\n        \"mediaId\": \"tt0035423\",\r\n        \"status\": \"Watchlist\"\r\n    }",
+					"raw": "    {\r\n        \"_id\": \"333000000000000000000001\",\r\n        \"userId\": \"222000000000000000000001\",\r\n        \"mediaId\": \"tt0035423\",\r\n        \"status\": \"Seen\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -354,7 +612,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5198/api/mediastatus/LE_BON_ID",
+					"raw": "http://localhost:5198/api/mediastatus/333000000000000000000001",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -363,19 +621,39 @@
 					"path": [
 						"api",
 						"mediastatus",
-						"LE_BON_ID"
+						"333000000000000000000001"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Delete mediastatus",
+			"name": "Get stats statuses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Stats - status counts\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data).to.be.an(\"object\");\r",
+							"    Object.keys(data).forEach(k => {\r",
+							"        pm.expect(data[k]).to.be.a(\"number\");\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
-				"method": "DELETE",
+				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5198/api/mediastatus/LE_BON_ID",
+					"raw": "http://localhost:5198/api/stats/statuses",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -383,8 +661,8 @@
 					"port": "5198",
 					"path": [
 						"api",
-						"mediastatus",
-						"LE_BON_ID"
+						"stats",
+						"statuses"
 					]
 				}
 			},
@@ -392,11 +670,32 @@
 		},
 		{
 			"name": "Get all mediaItems in a user's list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get all mediaItems with status for user\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const list = pm.response.json();\r",
+							"    pm.expect(list).to.be.an(\"array\");\r",
+							"    list.forEach(e => {\r",
+							"        pm.expect(e).to.have.property(\"media\");\r",
+							"        pm.expect(e).to.have.property(\"status\");\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5198/api/user/6840f398c0569533b4eaeab3/medias",
+					"raw": "http://localhost:5198/api/user/222000000000000000000001/medias",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -405,7 +704,7 @@
 					"path": [
 						"api",
 						"user",
-						"6840f398c0569533b4eaeab3",
+						"222000000000000000000001",
 						"medias"
 					]
 				}
@@ -414,11 +713,60 @@
 		},
 		{
 			"name": "Get all favorited mediaItems in a user's list",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const mediaStatus = {\r",
+							"    userId: \"222000000000000000000001\",\r",
+							"    mediaId: \"tt0035423\",\r",
+							"    status: \"Favorite\"\r",
+							"};\r",
+							"\r",
+							"pm.sendRequest({\r",
+							"    url: \"http://localhost:5198/api/mediastatus\",\r",
+							"    method: \"POST\",\r",
+							"    header: {\r",
+							"        \"Content-Type\": \"application/json\"\r",
+							"    },\r",
+							"    body: {\r",
+							"        mode: \"raw\",\r",
+							"        raw: JSON.stringify(mediaStatus)\r",
+							"    }\r",
+							"}, function (err, res) {\r",
+							"    console.log(\"favorite created pour tt0035423\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get favorited mediaItems\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"At least one item returned\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length).to.be.above(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5198/api/user/6840f398c0569533b4eaeab3/medias/favorite",
+					"raw": "http://localhost:5198/api/user/222000000000000000000001/medias/favorite",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -427,7 +775,7 @@
 					"path": [
 						"api",
 						"user",
-						"6840f398c0569533b4eaeab3",
+						"222000000000000000000001",
 						"medias",
 						"favorite"
 					]
@@ -437,6 +785,24 @@
 		},
 		{
 			"name": "Get genres of a mediaItem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get genres of mediaItem\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const genres = pm.response.json();\r",
+							"    pm.expect(genres).to.be.an(\"array\");\r",
+							"    genres.forEach(g => pm.expect(g).to.have.property(\"nom\"));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -458,7 +824,60 @@
 			"response": []
 		},
 		{
+			"name": "Delete mediastatus",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete mediastatus\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5198/api/mediastatus/333000000000000000000001",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5198",
+					"path": [
+						"api",
+						"mediastatus",
+						"333000000000000000000001"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get by type + keyword",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Search mediaItem by type + filters\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const results = pm.response.json();\r",
+							"    pm.expect(results).to.be.an(\"array\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -490,6 +909,26 @@
 		},
 		{
 			"name": "Get stats totals",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Stats - total counts\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const data = pm.response.json();\r",
+							"    [\"users\", \"mediaItems\", \"mediaStatuses\"].forEach(k => {\r",
+							"        pm.expect(data).to.have.property(k);\r",
+							"        pm.expect(data[k]).to.be.a(\"number\");\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -510,28 +949,28 @@
 			"response": []
 		},
 		{
-			"name": "Get stats statuses",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5198/api/stats/statuses",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5198",
-					"path": [
-						"api",
-						"stats",
-						"statuses"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get partial projection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get mediaItems partial projection\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const items = pm.response.json();\r",
+							"    pm.expect(items).to.be.an(\"array\");\r",
+							"    items.forEach(m => {\r",
+							"        pm.expect(m).to.have.property(\"titre\");\r",
+							"        pm.expect(m).to.have.property(\"annee\");\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -553,11 +992,25 @@
 		},
 		{
 			"name": "Get fav genres for a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get favorite genres for user\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5198/api/stats/user/6840f398c0569533b4eaeab3/topgenres",
+					"raw": "http://localhost:5198/api/stats/user/222000000000000000000001/topgenres",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -567,7 +1020,7 @@
 						"api",
 						"stats",
 						"user",
-						"6840f398c0569533b4eaeab3",
+						"222000000000000000000001",
 						"topgenres"
 					]
 				}
@@ -576,14 +1029,25 @@
 		},
 		{
 			"name": "Get mediaItem seen per year",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get mediaItem count per year\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
-				"auth": {
-					"type": "inherit"
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5198/api/stats/6840f398c0569533b4eaeab3/activity-by-year",
+					"raw": "http://localhost:5198/api/stats/222000000000000000000001/activity-by-year",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -592,7 +1056,7 @@
 					"path": [
 						"api",
 						"stats",
-						"6840f398c0569533b4eaeab3",
+						"222000000000000000000001",
 						"activity-by-year"
 					]
 				}
@@ -601,11 +1065,26 @@
 		},
 		{
 			"name": "Get mediaItem per average duration for a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get media average duration for user\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5198/api/stats/6840f398c0569533b4eaeab3/average-duration",
+					"raw": "http://localhost:5198/api/stats/222000000000000000000001/average-duration",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -614,7 +1093,7 @@
 					"path": [
 						"api",
 						"stats",
-						"6840f398c0569533b4eaeab3",
+						"222000000000000000000001",
 						"average-duration"
 					]
 				}
@@ -623,10 +1102,27 @@
 		},
 		{
 			"name": "Create mediaItem, create genres, link the two",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Create media + genres\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Media ID returned\", function () {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data).to.have.property(\"_id\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
-				"auth": {
-					"type": "inherit"
-				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -656,6 +1152,26 @@
 		},
 		{
 			"name": "Create mediaItem, create genres, link the two (transaction)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Transactional create media + genres\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Media ID returned (txn)\", function () {\r",
+							"    const data = pm.response.json();\r",
+							"    pm.expect(data).to.have.property(\"_id\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],

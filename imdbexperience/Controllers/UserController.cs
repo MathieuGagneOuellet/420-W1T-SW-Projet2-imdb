@@ -54,6 +54,15 @@ namespace imdbexperience.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(string id)
+        {
+            var success = await _dao.DeleteAsync(id);
+            if (!success) return NotFound();
+
+            return NoContent();
+        }
+
         //route qui appelle GetByIdsAsync pour pouvoir retourner tous les mediaItems liés à un user
         [HttpGet("{userId}/medias")]
         public async Task<ActionResult<List<MediaItemWithStatus>>> GetUserMedias(string userId)

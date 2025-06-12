@@ -25,6 +25,7 @@ namespace imdbexperience.Utils
             {
                 var admin = new User
                 {
+                    Id = "222000000000000000000001",
                     Username = "admin",
                     Password = "admin"
                 };

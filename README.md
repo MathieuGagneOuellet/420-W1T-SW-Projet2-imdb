@@ -71,3 +71,5 @@ DELETE => /api/mediastatus/6841aafea8333b2baf9c4b8d : Delete un mediaStatus pour
 - Je vais créer une nouvelle méthode/route qui permet de créer un film et ses genres directement (en une seule route). La méthode va permettre de créer des nouveaux genres et ceux-ci seront ajoutés à la DB directement comme étant des objets Mongo
 - La grille de correction indique que ça me prend une "Requête impliquant une transaction". Je vais reprendre la job que je viens de faire et l'intégrer dans une transaction (même principe que pour MySQL). Création de la route api/mediaitem/transaction 
 - J'ai aussi ajouté des vérifications simples sur les champs Titre de MediaItem et Nom de Genres
+- J'avais complètement oublié Delete User. Je l'ajoute dans UserController
+- J'ajoute mes tests post-response à ma collection de tests Postman
